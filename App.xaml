@@ -1,0 +1,9 @@
+﻿<Application x:Class="Cooka_Контроль.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Cooka_Контроль"
+             StartupUri="CookaControl.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
