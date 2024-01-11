@@ -20,10 +20,14 @@ namespace Cooka_Контроль
     public partial class HistoryWindow : Window
     {
         AppContext DB;
-        public HistoryWindow()
+        
+        public HistoryWindow(AppContext DB)
         {
-            DB=new AppContext();
+            
+
+            this.DB = DB;
             InitializeComponent();
+
             List<Order> orders = DB.Orders.ToList();
             foreach (Order item in orders)
             {
@@ -34,6 +38,18 @@ namespace Cooka_Контроль
 
         private void ClearHistory_Click(object sender, RoutedEventArgs e)
         {
+
+            List<Pizza> pizzas = DB.Pizzas.ToList();
+            foreach (Pizza item in pizzas)
+            {
+                Pizza p = DB.Pizzas.FirstOrDefault(x => x.Id == item.Id);
+                if (p != null && p.Sell!=0)
+                {
+                    p.Sell = 0;
+                    DB.SaveChanges();
+                }
+
+            }
             DB.Orders.RemoveRange(DB.Orders.ToList());
             DB.SaveChanges();
             HistoryBox.Text = "";

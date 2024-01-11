@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,21 +35,18 @@ namespace Cooka_Контроль
             ListOfPizzas.ItemsSource = pizzas;
 
             List<Order> orders = DB.Orders.ToList();
-            
+
             foreach (Order item in orders.Where(item => item.Data == DateTime.Now.ToString("d")))
             {
-                OrderList.Text +=" "+ "Заказ: " + item.OrderNumber +"\n Стоимость: "+item.OrderPrice+ "\n";
-                OrderList.Text += new string(' ', 6) + item.Products+"\n";
+                OrderList.Text += " " + "Заказ: " + item.OrderNumber + "\n Стоимость: " + item.OrderPrice + "\n";
+                OrderList.Text += new string(' ', 6) + item.Products + "\n";
             }
-
-            
-
-
 
             //List<Order> orders = DB.Orders.ToList();   
             //ListOfOrders.ItemsSource = orders.Where(item=> item.Data== DateTime.Now.ToString("d"));
         }
-
+        
+        
 
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
@@ -85,6 +85,12 @@ namespace Cooka_Контроль
                 foreach (Pizza item in ListOfOrder.Items)
                 {
                     products += new string(' ', 6) + item.PizzaName + " " + item.PizzaSize + "см " + item.PizzaPrice + "руб\n";
+                    Pizza selectPizza=DB.Pizzas.FirstOrDefault(Item => Item.Id == item.Id);
+                    if (selectPizza != null)
+                    {
+                        selectPizza.Sell += 1;
+                        DB.SaveChanges();
+                    }
                     //Order order= new Order(currentDate,ordernumber, item.PizzaName, item.PizzaSize, item.PizzaPrice, int.Parse(Summ.Text));
                     //DB.Orders.Add(order);
                     //DB.SaveChanges();
@@ -133,20 +139,54 @@ namespace Cooka_Контроль
 
         private void History_Click(object sender, RoutedEventArgs e)
         {
-            HistoryWindow historyWindow= new HistoryWindow();
+            HistoryWindow historyWindow= new HistoryWindow(DB);
             historyWindow.Show();
         }
 
         private void StatiPizzas_Click(object sender, RoutedEventArgs e)
         {
-            StatPizzas statPizzas = new StatPizzas();
+            StatPizzas statPizzas = new StatPizzas(DB);
             statPizzas.Show();
         }
 
         private void StatiDays_Click(object sender, RoutedEventArgs e)
         {
-            StatDays statDays = new StatDays();
+            StatDays statDays = new StatDays(DB);
             statDays.Show();
+        }
+
+        private void ChekAddress_Click(object sender, RoutedEventArgs e)
+        {
+            string url = "https://2gis.ru/chelyabinsk/search/" + StreetBox.Text + " " + HouseBox.Text;
+
+            // Открытие браузера с указанным URL
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+        private void StreetBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                HouseBox.Focus();
+        }
+        private void HouseBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                FontDoorBox.Focus();
+        }
+
+        private void FontDoorBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                ApartmentBox.Focus();
+        }
+
+        private void ApartmentBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                ChekAddress_Click(sender, e);
         }
     }
 }

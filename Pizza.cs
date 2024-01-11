@@ -11,7 +11,7 @@ namespace Cooka_Контроль
     {
         public int Id {  get; set; }
         private string pizzaname;
-        private int pizzasize, pizzaprice;
+        private int pizzasize, pizzaprice, sell;
 
         public string PizzaName
         {
@@ -28,12 +28,18 @@ namespace Cooka_Контроль
             get { return pizzaprice; }
             set { pizzaprice = value; }
         }
+        public int Sell
+        {
+            get { return sell; }
+            set { sell = value; }
+        }
         public Pizza() { }
-        public Pizza(string pizzaname, int pizzasize, int pizzaprice)
+        public Pizza(string pizzaname, int pizzasize, int pizzaprice, int sell)
         {
             this.pizzaname = pizzaname;
             this.pizzasize = pizzasize;
             this.pizzaprice = pizzaprice;
+            this.sell = sell;
         }
 
         //public override string ToString()
