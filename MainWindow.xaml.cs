@@ -32,7 +32,7 @@ namespace Cooka_Контроль
 
         private void SetItem_Click(object sender, RoutedEventArgs e)
         {
-            Pizza pizza = new Pizza(SetName.Text,int.Parse(SetSize.Text),int.Parse(SetPrice.Text), 0);
+            Pizza pizza = new Pizza(SetName.Text,int.Parse(SetSize.Text),int.Parse(SetPrice.Text));
             DB.Pizzas.Add(pizza);
             DB.SaveChanges();
             SetName.Clear();

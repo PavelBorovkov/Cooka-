@@ -20,19 +20,26 @@ namespace Cooka_Контроль
     public partial class StatPizzas : Window
     {
         AppContext DB;
-        public StatPizzas(AppContext DB)
+        public StatPizzas()
         {
+            DB= new AppContext();
             InitializeComponent();
-            this.DB = DB;
-            
-            List<Pizza> pizzas = DB.Pizzas.ToList();
+            //List<Pizza> pizzas = DB.Pizzas.ToList();
             //List<Order> orders = DB.Orders.ToList();
-
-            foreach (Pizza pizza in pizzas)
-            {
-                Stati.Text += pizza.PizzaName + " " + pizza.PizzaSize+"   "+pizza.Sell+"шт"+"\n";   
-            }
-            pizzas.Clear();
+            
+            //foreach (Pizza pizza in pizzas) 
+            //{
+            //    Stati.Text += pizza.PizzaName + " " + pizza.PizzaSize;
+            //    int amount = 0;
+            //    foreach(Order order in orders)
+            //    {
+            //        if(pizza.PizzaName==order.PizzaName && pizza.PizzaSize==order.PizzaSize)
+            //        {
+            //            amount++;
+            //        }
+            //    }
+            //    Stati.Text += " " + amount+"\n";
+            //}
         }
     }
 }

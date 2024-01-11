@@ -20,29 +20,22 @@ namespace Cooka_Контроль
     public partial class StatDays : Window
     {
         AppContext DB;
-        public StatDays(AppContext DB)
+        public StatDays()
         {
             InitializeComponent();
-            this.DB = DB;
+            DB = new AppContext();
             string currentDate = DateTime.Now.ToString("d");
             int sum = 0;
             List<Order> orders = DB.Orders.ToList();
-
             foreach (Order item in orders)
             {
-                if (orders.Count == item.OrderNumber && item.Data == currentDate)
-                {
-                    sum += item.OrderPrice;
-                    Stati.Text += currentDate + " " + sum + " руб\n";
-                }
-                if (item.Data == currentDate)
+                if(item.Data==currentDate) 
                 {
                     sum += item.OrderPrice;
                 }
-                
                 else
                 {
-                    Stati.Text += currentDate + " " + sum + " руб\n";
+                    Stati.Text += currentDate+" "+sum+" руб";
                     sum = item.OrderPrice;
                     currentDate = item.Data;
                 }

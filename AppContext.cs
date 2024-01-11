@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace Cooka_Контроль
 {
-    public class AppContext:DbContext
+    internal class AppContext:DbContext
     {
         public DbSet<Order> Orders { get; set; }
         public DbSet<Pizza> Pizzas { get; set; }
