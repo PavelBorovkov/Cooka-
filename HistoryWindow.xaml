@@ -9,7 +9,9 @@
     <Grid Background="Aqua">
         <Button x:Name="ClearHistory" Click="ClearHistory_Click" Width="140" Height="30" Content="Очистить историю" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10 5 0 0"/>
         <Border Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2" BorderThickness="2" BorderBrush="OrangeRed"  Margin="10 40 10 30">
-            <TextBlock x:Name="HistoryBox" Background="White" FontSize="12"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <TextBlock TextWrapping="Wrap" x:Name="HistoryBox" Background="White" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+                </ScrollViewer>
         </Border>
     </Grid>
 </Window>
