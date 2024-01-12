@@ -98,12 +98,16 @@ namespace Cooka_Контроль
                 }
                 OrderList.Text += " Заказ: " + ordernumber + "\n Стоимость: " + int.Parse(Summ.Text) + "\n" + products;
 
-                if (StreetBox.Text != null)
+                if (StreetBox.Text!="")
                 {
                     string address = StreetBox.Text + " " + HouseBox.Text + ". подьезд: " + FontDoorBox.Text + " кв: " + ApartmentBox.Text;
                     Order order = new Order(currentDate, ordernumber, products, int.Parse(Summ.Text), address);
                     DB.Orders.Add(order);
                     DB.SaveChanges();
+                    StreetBox.Text = "";
+                    ApartmentBox.Text = "";
+                    FontDoorBox.Text = "";
+                    HouseBox.Text = "";
                 }
                 else
                 {
@@ -115,6 +119,7 @@ namespace Cooka_Контроль
                 summ = 0;
 
                 ListOfOrder.Items.Clear();
+                
                 //List<Order> orders = DB.Orders.ToList();
                 //ListOfOrders.ItemsSource = orders.Where(item => item.Data == DateTime.Now.ToString("d"));
             }

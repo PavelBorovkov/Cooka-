@@ -31,8 +31,16 @@ namespace Cooka_Контроль
             List<Order> orders = DB.Orders.ToList();
             foreach (Order item in orders)
             {
-                HistoryBox.Text += item.Data+"\n" + "Заказ: " + item.OrderNumber + "\n Стоимость: " + item.OrderPrice + "\n";
-                HistoryBox.Text +=item.Products + "\n";
+                if (item.Address ==null)
+                { 
+                HistoryBox.Text += item.Data + "\n" + "Заказ: " + item.OrderNumber + "\n Стоимость: " + item.OrderPrice + "\n";
+                HistoryBox.Text += item.Products + "\n";
+                }
+                else 
+                {
+                    HistoryBox.Text += item.Data + "\n" + "Заказ: " + item.OrderNumber + "\n Стоимость: " + item.OrderPrice + "\n"+item.Address+"\n";
+                    HistoryBox.Text += item.Products + "\n";
+                }
             }
         }
 
